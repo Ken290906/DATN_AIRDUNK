@@ -125,11 +125,10 @@ public class chitietsanphamviewmodelRepo {
             "(select TOP 1 IDMatDe from MatDe where MatDeSP = ?), (select TOP 1 IDDay from Dayy where dAYsp = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
 
     try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-        int randomNumber = (int) (Math.random() * 1000) + 1;
-        String CTSP = "CTSP" + randomNumber;
+        
         
         // Set the generated 'MaCTSP' value into the prepared statement
-        ps.setObject(1, CTSP);
+        ps.setObject(1, ctsp.getMasp());
         ps.setObject(2, ctsp.getIdhangsx());
         ps.setObject(3, ctsp.getIddongsp());
         ps.setObject(4, ctsp.getIdphoimau());

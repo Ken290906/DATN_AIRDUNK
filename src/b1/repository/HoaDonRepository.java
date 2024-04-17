@@ -34,7 +34,9 @@ public class HoaDonRepository {
                                                            dbo.KhachHang ON dbo.HoaDon.MaKH = dbo.KhachHang.MaKH LEFT JOIN
                                                             dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT LEFT JOIN
                                                              dbo.VCH ON dbo.HoaDon.MaVCH = dbo.VCH.MaVCH
-                     WHERE dbo.HoaDon.Deleted = 0 OR dbo.HoaDon.Deleted = 1
+                     WHERE dbo.HoaDon.Deleted = 0 OR 
+                     dbo.HoaDon.Deleted = 1 OR
+                     dbo.HoaDon.Deleted = 3
                      """;
         try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -121,7 +123,7 @@ public class HoaDonRepository {
 
             // Tạo tiêu đề cho các cột
             Row headerRow = mainSheet.createRow(0);
-            String[] columns = {"Mã HD", "Ngày Tạo Hóa Đơn", "Tổng Tiền", "Tên KH", "Địa Chỉ KH", "SĐT KH"};
+            String[] columns = {"Mã HD", "Tổng Tiền", "Tên KH", "Địa Chỉ KH", "SĐT KH"};
             for (int i = 0; i < columns.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(columns[i]);
@@ -135,11 +137,10 @@ public class HoaDonRepository {
             for (HoaDon hoaDon : hoaDonList) {
                 Row row = mainSheet.createRow(rowNum++);
                 row.createCell(0).setCellValue(hoaDon.getMaHD());
-                row.createCell(1).setCellValue(hoaDon.getNgaytaoHD().toString());
-                row.createCell(2).setCellValue(hoaDon.getTongTien());
-                row.createCell(3).setCellValue(hoaDon.getTenKH());
-                row.createCell(4).setCellValue(hoaDon.getDiaChi());
-                row.createCell(5).setCellValue(hoaDon.getSdtKH());
+                row.createCell(1).setCellValue(hoaDon.getTongTien());
+                row.createCell(2).setCellValue(hoaDon.getTenKH());
+                row.createCell(3).setCellValue(hoaDon.getDiaChi());
+                row.createCell(4).setCellValue(hoaDon.getSdtKH());
 
                 // Tạo sheet chi tiết cho mỗi hóa đơn
                 Sheet detailSheet = workbook.createSheet("ChiTietHoaDon_" + hoaDon.getMaHD());

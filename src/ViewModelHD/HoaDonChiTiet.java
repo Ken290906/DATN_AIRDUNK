@@ -13,6 +13,7 @@ public class HoaDonChiTiet {
     private String maHDCT;
     private String maHD;
     private String idCTSP;
+    private int Soluong;
     private float donGia;
     private String hang;
     private String mau;
@@ -57,6 +58,14 @@ public class HoaDonChiTiet {
         this.idCTSP = idCTSP;
     }
 
+    public int getSoluong() {
+        return Soluong;
+    }
+
+    public void setSoluong(int Soluong) {
+        this.Soluong = Soluong;
+    }
+    
     public float getDonGia() {
         return donGia;
     }
@@ -123,8 +132,10 @@ public class HoaDonChiTiet {
 
     @Override
     public String toString() {
-        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", donGia=" + donGia + ", hang=" + hang + ", mau=" + mau + ", size=" + size + ", doday=" + doday + ", chatlieu=" + chatlieu + ", matde=" + matde + ", day=" + day + '}';
+        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", donGia=" + donGia + ", hang=" + hang + ", mau=" + mau + ", size=" + size + ", doday=" + doday + ", chatlieu=" + chatlieu + ", matde=" + matde + ", day=" + day + '}';
     }
+
+    
 
     
 }

@@ -2065,8 +2065,8 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                             .addComponent(buttonGradient10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtSearchGH, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -2399,7 +2399,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         // TODO add your handling code here:
         int index = tblhoadon.getSelectedRow();
         HoaDonBH hd = listBH.get(index);
-        srhd.Delete(hd.getMaHD());
+        srhd.Delete(hd.getMaHD(), hd.getMaHD(), hd.getMaHD());
         listBH = srhd.getAll();
         showHoaDonBH(listBH);
     }//GEN-LAST:event_btnDeleteHDActionPerformed

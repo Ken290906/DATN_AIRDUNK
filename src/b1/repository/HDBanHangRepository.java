@@ -7,6 +7,7 @@ package b1.repository;
 import b1.entity.HDChiTiet;
 import b1.entity.HoaDonBH;
 import b1.entity.LichSuHoaDon;
+import b1.entity.chitietsanpham;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -172,20 +173,38 @@ public class HDBanHangRepository {
         }
         return check > 0;
     }
-
-    public boolean Delete(String maHD) {
+   
+    public boolean Delete(String maHD, String maHD1, String maHD2) {
         int check = 0;
 
-        String sql = """
+        String sqlHD = """
                     UPDATE [dbo].[HoaDon]
                                                       SET [Deleted] = 3
                                                    
                                                     WHERE MaHD = ? 
                      """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        
+        String sqlHDCT = """
+                         DELETE FROM [dbo].[HoaDonChiTiet]
+                               WHERE MaHoaDon = ?
+                         """;
+        
+        String sqlLSHD = """
+                         DELETE FROM [dbo].[LichsuHD]
+                               WHERE IDHoaDon = ?
+                         """;
+        try (Connection con = DBConnect.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sqlHD);
+                PreparedStatement ps1 = con.prepareCall(sqlHDCT);
+                PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, maHD);
-
             check = ps.executeUpdate();
+            
+            ps1.setObject(1, maHD1);
+            check = ps1.executeUpdate();
+            
+            ps2.setObject(1, maHD2);
+            check = ps2.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

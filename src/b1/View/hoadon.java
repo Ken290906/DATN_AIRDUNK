@@ -268,8 +268,10 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
     private String SearchTT(String trangthai) {
         if ("1".equalsIgnoreCase(trangthai)) {
             return "Chưa thanh toán";
-        } else {
+        } else if("0".equalsIgnoreCase(trangthai)) {
             return "Đã thanh toán";
+        } else {
+            return "Đã hủy";
         }
     }
 
@@ -317,6 +319,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 hdct.getMaHD(),
                 hdct.getMaHDCT(),
                 hdct.getIdCTSP(),
+                hdct.getSoluong(),
                 hdct.getHang(),
                 hdct.getMau(),
                 hdct.getSize(),
@@ -354,6 +357,8 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             String tt = "";
             if (hd.getTrangThai() == 0) {
                 tt = "Đã thanh toán";
+            } else if(hd.getTrangThai() == 3) {
+                tt = "Đã hủy";
             } else {
                 tt = "Chưa thanh toán";
             }
@@ -599,7 +604,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             }
         });
 
-        cbbTrangthai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Đã thanh toán", "Chưa thanh toán" }));
+        cbbTrangthai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Đã thanh toán", "Chưa thanh toán", "Đã hủy" }));
         cbbTrangthai.setLabeText("Trạng thái");
         cbbTrangthai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -721,13 +726,13 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
 
         TblHDCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "HÃNG", "MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "ĐƠN GIÁ"
+                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "SỐ LƯỢNG", "HÃNG", "MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "ĐƠN GIÁ"
             }
         ));
         TblHDCT.setGridColor(new java.awt.Color(255, 255, 255));
@@ -763,9 +768,9 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(cbbhang, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -777,12 +782,12 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 .addComponent(cbbmatde, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbbday, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbbsize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -812,8 +817,8 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -823,16 +828,13 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                        .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 

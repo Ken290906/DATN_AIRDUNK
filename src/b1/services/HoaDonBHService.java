@@ -33,8 +33,8 @@ public class HoaDonBHService {
         return repo.Add(hdbh, hdct, lshd);
     }
     
-    public boolean Delete(String maHD) {
-        return repo.Delete(maHD);
+    public boolean Delete(String maHD, String maHD1, String maHD2) {
+        return repo.Delete(maHD, maHD1, maHD2);
     }
     
     public boolean UpdateBanhang(HoaDonBH hd, HDChiTiet hdct, LichSuHoaDon lshd, String MaVCH, String sua, String sua1, String sua2, String MaKH){

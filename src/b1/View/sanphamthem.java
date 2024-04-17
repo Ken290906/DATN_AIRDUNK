@@ -30,10 +30,13 @@ import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -234,14 +237,29 @@ public class sanphamthem extends javax.swing.JFrame {
         }
         double size = Double.parseDouble(txtsize.getText());
         if (Double.parseDouble(txtsize.getText()) >= 50) {
-            JOptionPane.showMessageDialog(this, "Kích cỡ quả lớn đối với người Châu Á");
+            JOptionPane.showMessageDialog(this, "Kích cỡ quả lớn đối với ngườXzi Châu Á");
             return null;
         }
         if (Double.parseDouble(txtsize.getText()) <= 30) {
             JOptionPane.showMessageDialog(this, "Không có loại size nào bé như thế");
             return null;
         }
-        chitietsanpham ctsp1 = new chitietsanpham(HSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0, Integer.valueOf(SL));
+        
+        try {
+            ByteArrayOutputStream out = QRCode.from(CTSP)
+                    .to(ImageType.PNG).stream();
+
+            String fileName = "C:\\QRSanPham\\" + CTSP + ".png"; // Tên file ảnh QRCode
+
+            // Ghi ảnh QR vào file
+            FileOutputStream fout = new FileOutputStream(new File(fileName));
+            fout.write(out.toByteArray());
+            fout.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(hoadon.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        chitietsanpham ctsp1 = new chitietsanpham(CTSP, HSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0, Integer.valueOf(SL));
         return ctsp1;
     }
 
